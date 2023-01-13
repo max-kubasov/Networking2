@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 enum Actions: String, CaseIterable {
     
@@ -27,12 +28,27 @@ class MainViewController: UICollectionViewController {
     let actions = Actions.allCases
     private var alert: UIAlertController!
     private let dataProvider = DataProvider()
+    private var filePath: String?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        registerForNotification()
+        
+        dataProvider.fileLocation = { location in
+            
+            print("Download finished \(location.absoluteString)")
+            self.filePath = location.absoluteString
+            self.alert.dismiss(animated: false)
+            self.postNotofication()
+        }
+    }
     
     private func showAlert() {
         
         alert = UIAlertController(title: "Downloading...", message: "0%", preferredStyle: .alert)
         
-        let height = NSLayoutConstraint(item: alert.view,
+        let height = NSLayoutConstraint(item: alert.view!,
                                         attribute: .height,
                                         relatedBy: .equal,
                                         toItem: nil,
@@ -114,4 +130,26 @@ class MainViewController: UICollectionViewController {
         }
     }
 
+}
+
+extension MainViewController {
+    
+    private func registerForNotification() {
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { _, _ in
+            
+        }
+    }
+    
+    private func postNotofication() {
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Download compleat!"
+        content.body = "You background transfer has completed. File path: \(filePath!)"
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "TransferComplete", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request)
+    }
 }
