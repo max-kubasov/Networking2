@@ -16,6 +16,9 @@ class DataProvider: NSObject {
     
     private lazy var bgSession: URLSession = {
         let config = URLSessionConfiguration.background(withIdentifier: "Max.Networking")
+        config.isDiscretionary = true
+        config.timeoutIntervalForResource = 300
+        config.waitsForConnectivity = true
         config.sessionSendsLaunchEvents = true
         return URLSession(configuration: config, delegate: self, delegateQueue: nil)
     }()
@@ -72,6 +75,13 @@ extension DataProvider: URLSessionDownloadDelegate {
         DispatchQueue.main.async {
             self.onProgress?(progress)
         }
+    }
+}
+
+extension DataProvider: URLSessionTaskDelegate {
+    
+    func urlSession(_ session: URLSession, taskIsWaitingForConnectivity task: URLSessionTask) {
+        
     }
 }
 
