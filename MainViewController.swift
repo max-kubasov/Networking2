@@ -2,8 +2,8 @@
 //  MainViewController.swift
 //  Networking
 //
-//  Created by Max on 09.01.2023.
-//  Copyright © 2023 Alexey Efimov. All rights reserved.
+//  Created by Max on 12.01.2023.
+//  Copyright © 2023 Max. All rights reserved.
 //
 
 import UIKit

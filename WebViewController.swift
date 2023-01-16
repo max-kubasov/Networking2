@@ -2,8 +2,8 @@
 //  WebViewController.swift
 //  Networking
 //
-//  Created by Alexey Efimov on 06.09.2018.
-//  Copyright © 2018 Alexey Efimov. All rights reserved.
+//  Created by Max on 12.01.2023.
+//  Copyright © 2023 Max. All rights reserved.
 //
 
 import UIKit

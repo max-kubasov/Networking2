@@ -2,8 +2,8 @@
 //  CoursesViewController.swift
 //  Networking
 //
-//  Created by Alexey Efimov on 06.09.2018.
-//  Copyright © 2018 Alexey Efimov. All rights reserved.
+//  Created by Max on 12.01.2023.
+//  Copyright © 2023 Max. All rights reserved.
 //
 
 import UIKit
@@ -28,7 +28,12 @@ class CoursesViewController: UIViewController {
     }
     
     func fetchDataWithAlamofire() {
-        AlamofireNetworkRequest.sendRequest(url: url)
+        AlamofireNetworkRequest.sendRequest(url: url) { courses in
+            self.courses = courses
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
     
     private func configureCell(cell: TableViewCell, for indexPath: IndexPath) {
