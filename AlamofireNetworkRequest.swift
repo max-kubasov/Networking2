@@ -8,11 +8,15 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
 
 class AlamofireNetworkRequest {
     
-    static func sendRequest(url: String, complition: @escaping (_ courses: [Course])->()) {
+    static var onProgress: ((Double) -> ())?
+    static var completed: ((String) -> ())?
+    
+    static func sendRequest(url: String, complition: @escaping (_ courses: [Course]) -> ()) {
         
         guard let url = URL(string: url) else { return }
         
@@ -32,6 +36,25 @@ class AlamofireNetworkRequest {
                 
             case .failure(let error):
                 print(error)
+            }
+        }
+    }
+    
+    static func downloadImage(url: String, complition: @escaping (_ image: UIImage) -> ()) {
+        
+        guard let url = URL(string: url) else { return }
+        
+        AF.request(url).responseData { responseData in
+            
+            switch responseData.result {
+                
+            case .success(let data):
+                guard let image = UIImage(data: data) else { return }
+                complition(image)
+                
+            case .failure(let error):
+                print(error )
+                
             }
         }
     }
@@ -77,4 +100,33 @@ class AlamofireNetworkRequest {
             print(string)
         }
     }
+    
+    static func downloadImageWithProgress(url: String, complition: @escaping (_ image: UIImage) -> ()) {
+
+        guard let url = URL(string: url) else { return }
+
+        AF.request(url).validate().downloadProgress { progress in
+
+            print("totalUnitCount: \(progress.totalUnitCount)")
+            print("completedUnitCount: \(progress.completedUnitCount)")
+            print("fractionCompleted: \(progress.fractionCompleted)")
+            print("localizedDescription: \(progress.localizedDescription!)")
+            print("-----------------------------------------")
+            
+            self.onProgress?(progress.fractionCompleted )
+            self.completed?(progress.localizedDescription)
+            
+            
+        }.response { response in
+            
+            guard let data = response.data, let image = UIImage(data: data) else { return }
+            
+            DispatchQueue.main.async {
+                complition(image)
+            }
+        }
+    }
+    
+
+    
 }
