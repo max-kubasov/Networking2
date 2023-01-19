@@ -128,5 +128,76 @@ class AlamofireNetworkRequest {
     }
     
 
+    static func postRequest(url: String, complition: @escaping (_ courses: [Course]) -> ()) {
+        
+        guard let url = URL(string: url) else { return }
+        
+        let userData: [String: Any] = ["name": "Network Request",
+                                       "link": "https://swiftbook.ru/contents/our-first-applications/",
+                                       "imageUrl": "https://swiftbook.ru/wp-content/uploads/2018/03/2-courselogo.jpg",
+                                       "numberOfLessons": 18,
+                                       "numberOfTests": 10]
+        
+        AF.request(url, method: .post, parameters: userData).responseJSON { responseJSON in
+            
+            guard let statusCode = responseJSON.response?.statusCode else { return }
+            print("StatusCode", statusCode)
+            
+            switch responseJSON.result {
+                
+            case .success(let value):
+                print(value)
+            
+                guard
+                    let jsonOject = value as? [String: Any],
+                        let course = Course(json: jsonOject)
+                else { return }
+                
+                var courses = [Course]()
+                courses.append(course)
+                
+                complition(courses)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    static func putRequest(url: String, complition: @escaping (_ courses: [Course]) -> ()) {
+        
+        guard let url = URL(string: url) else { return }
+        
+        let userData: [String: Any] = ["name": "Network Request with Alamofire",
+                                       "link": "https://swiftbook.ru/contents/our-first-applications/",
+                                       "imageUrl": "https://swiftbook.ru/wp-content/uploads/2018/03/2-courselogo.jpg",
+                                       "numberOfLessons": 18,
+                                       "numberOfTests": 10]
+        
+        AF.request(url, method: .put, parameters: userData).responseJSON { responseJSON in
+            
+            guard let statusCode = responseJSON.response?.statusCode else { return }
+            print("StatusCode", statusCode)
+            
+            switch responseJSON.result {
+                
+            case .success(let value):
+                print(value)
+            
+                guard
+                    let jsonOject = value as? [String: Any],
+                        let course = Course(json: jsonOject)
+                else { return }
+                
+                var courses = [Course]()
+                courses.append(course)
+                
+                complition(courses)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
     
 }
