@@ -200,4 +200,8 @@ class AlamofireNetworkRequest {
         }
     }
     
+    static func uploadImage(url: String) {
+        
+    }
+    
 }

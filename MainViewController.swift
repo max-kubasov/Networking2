@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import FacebookLogin
 
 enum Actions: String, CaseIterable {
     
@@ -24,6 +25,7 @@ enum Actions: String, CaseIterable {
     case downloadlargeImage = "Download Large Image"
     case postAlamofire = "POST with Alamofire"
     case putRequest = "PUT Request with Alamofire"
+    case uploadImageAlamofire = "Upload Image (Alamofire)"
 }
 
 private let reuseIdentifier = "Cell"
@@ -50,6 +52,8 @@ class MainViewController: UICollectionViewController {
             self.alert.dismiss(animated: false)
             self.postNotofication()
         }
+        
+        checkLoggenIn()
     }
     
     private func showAlert() {
@@ -150,7 +154,8 @@ class MainViewController: UICollectionViewController {
             performSegue(withIdentifier: "PostRequest", sender: self)
         case .putRequest:
             performSegue(withIdentifier: "PutRequest", sender: self)
-            
+        case .uploadImageAlamofire:
+            AlamofireNetworkRequest.uploadImage(url: uploadImage)
             
         }
     }
@@ -202,5 +207,26 @@ extension MainViewController {
         
         let request = UNNotificationRequest(identifier: "TransferComplete", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request)
+    }
+}
+
+
+// MARK: Facebook SDK
+
+extension MainViewController {
+    
+    private func checkLoggenIn() {
+        
+        if !AccessToken.isCurrentAccessTokenActive {
+            
+            print("The user is logged in")
+            
+            DispatchQueue.main.async {
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let loginViewController = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                self.present(loginViewController, animated: true)
+                return
+            }
+        }
     }
 }
