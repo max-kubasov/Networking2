@@ -8,6 +8,7 @@
 
 import UIKit
 import FacebookLogin
+import FirebaseAuth
 
 class UserProfileVC: UIViewController {
     
@@ -68,7 +69,8 @@ extension UserProfileVC: LoginButtonDelegate {
     
     private func openLoginViewController() {
         
-        if !AccessToken.isCurrentAccessTokenActive {
+        do {
+            try Auth.auth().signOut()
             
             print("The user is logged in")
             
@@ -78,7 +80,11 @@ extension UserProfileVC: LoginButtonDelegate {
                 self.present(loginViewController, animated: true)
                 return
             }
+            
+        } catch let error {
+            print("Failed to sign out with error: ", error.localizedDescription)
         }
+
     }
     
 }

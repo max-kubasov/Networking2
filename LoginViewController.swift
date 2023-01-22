@@ -8,6 +8,7 @@
 
 import UIKit
 import FacebookLogin
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
     
@@ -97,8 +98,28 @@ extension LoginViewController: LoginButtonDelegate {
             
             if result.isCancelled { return }
             else {
+                self.signIntoFirebase()
                 self.openMainViewController()
             }
+        }
+    }
+    
+    private func signIntoFirebase() {
+        
+        let accessToken = AccessToken.current
+        
+        guard let  accessTokenString = accessToken?.tokenString else { return }
+        
+        let credentials = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
+        
+        Auth.auth().signIn(with: credentials) { user, error in
+            
+            if let error = error {
+                print("Something went wrong with our facebook user: ", error)
+                return
+            }
+            
+            print("Successfully logged in with our FB user: ", user!)
         }
     }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import FacebookCore
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application,
             didFinishLaunchingWithOptions: launchOptions
         )
+        
+        FirebaseApp.configure()
         
         return true
     }

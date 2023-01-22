@@ -9,6 +9,7 @@
 import UIKit
 import UserNotifications
 import FacebookLogin
+import FirebaseAuth
 
 enum Actions: String, CaseIterable {
     
@@ -217,7 +218,7 @@ extension MainViewController {
     
     private func checkLoggenIn() {
         
-        if !AccessToken.isCurrentAccessTokenActive {
+        if Auth.auth().currentUser == nil {
             
             print("The user is logged in")
             
