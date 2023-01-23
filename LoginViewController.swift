@@ -70,6 +70,7 @@ extension LoginViewController: LoginButtonDelegate {
         
         guard AccessToken.isCurrentAccessTokenActive else { return }
         
+        fetchFacebookFields()
         openMainViewController()
         
         print("Successfully logged in with Facebook...")
@@ -99,6 +100,7 @@ extension LoginViewController: LoginButtonDelegate {
             if result.isCancelled { return }
             else {
                 self.signIntoFirebase()
+                self.fetchFacebookFields()
                 self.openMainViewController()
             }
         }
@@ -120,6 +122,24 @@ extension LoginViewController: LoginButtonDelegate {
             }
             
             print("Successfully logged in with our FB user: ", user!)
+        }
+    }
+    
+    private func fetchFacebookFields() {
+        
+        guard AccessToken.current != nil else { return }
+
+        let request = GraphRequest(graphPath: "me", parameters: ["fields": "id, name, email"])
+        request.start() { connection, result, error in
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            if let userData = result as? [String: Any] {
+                print(userData)
+            }
         }
     }
 }
