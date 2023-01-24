@@ -324,18 +324,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Logged in with Facebook" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOX-XR-Mrn">
-                                <rect key="frame" x="83" y="100" width="209" height="115"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                <color key="textColor" red="0.99999994039999995" green="0.99999994039999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logged in with Facebook" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOX-XR-Mrn">
+                                <rect key="frame" x="83" y="100" width="209" height="50.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="bEQ-0x-tD5">
+                                <rect key="frame" x="177.5" y="115.5" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9h8-ns-fkX"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                        <constraints>
+                            <constraint firstItem="mOX-XR-Mrn" firstAttribute="top" secondItem="9h8-ns-fkX" secondAttribute="top" constant="100" id="0b1-5A-BjX"/>
+                            <constraint firstItem="mOX-XR-Mrn" firstAttribute="leading" secondItem="9h8-ns-fkX" secondAttribute="leading" constant="83" id="8c8-7D-02D"/>
+                            <constraint firstItem="bEQ-0x-tD5" firstAttribute="centerY" secondItem="mOX-XR-Mrn" secondAttribute="centerY" id="Q9s-gV-cEu"/>
+                            <constraint firstItem="bEQ-0x-tD5" firstAttribute="centerX" secondItem="mOX-XR-Mrn" secondAttribute="centerX" id="cGo-wZ-ihR"/>
+                            <constraint firstItem="9h8-ns-fkX" firstAttribute="trailing" secondItem="mOX-XR-Mrn" secondAttribute="trailing" constant="83" id="qLk-zx-sDA"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="item2" selectedImage="arrow.right.arrow.left.square.fill" catalog="system" id="s1K-Lj-DMO"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="bEQ-0x-tD5" id="C0Q-yn-xsB"/>
+                        <outlet property="userNamelabel" destination="mOX-XR-Mrn" id="Bk9-15-awS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DNC-Jy-gLe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -361,12 +374,15 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="KN0-RI-yMj"/>
+        <segue reference="Zhm-Mi-ly4"/>
         <segue reference="Be6-fl-P5w"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.right.arrow.left.square.fill" catalog="system" width="128" height="114"/>
         <image name="person.crop.circle.fill.badge.questionmark.ar" catalog="system" width="128" height="114"/>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -9,6 +9,7 @@
 import UIKit
 import FacebookLogin
 import FirebaseAuth
+import FirebaseDatabase
 
 class UserProfileVC: UIViewController {
     
@@ -24,12 +25,23 @@ class UserProfileVC: UIViewController {
         
     }()
 
+    @IBOutlet weak var userNamelabel: UILabel!
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.lightGray
-
+        
+        userNamelabel.isHidden = true
         setupViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchingUserData()
     }
     
 
@@ -88,5 +100,27 @@ extension UserProfileVC: LoginButtonDelegate {
     }
     
 
-    
+    private func fetchingUserData() {
+        
+        if Auth.auth().currentUser != nil {
+            
+            guard let uid = Auth.auth().currentUser?.uid else { return }
+            
+            Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { snapshot in
+                
+                guard let userData = snapshot.value as? [String: Any] else { return }
+                let currentUser = CurrentUser(uid: uid, data: userData)
+                
+                self.activityIndicator.stopAnimating()
+                self.userNamelabel.isHidden = false
+                
+                self.userNamelabel.text = "\(currentUser?.name ?? "NoName") logged in with Facebook"
+                
+                
+            } withCancel: { error in
+                print(error)
+            }
+
+        }
+    }
 }
