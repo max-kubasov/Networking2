@@ -10,7 +10,8 @@ import UIKit
 import FacebookLogin
 import FirebaseAuth
 import FirebaseDatabase
-
+import Firebase
+import GoogleSignIn
 
 class LoginViewController: UIViewController {
     
@@ -39,6 +40,14 @@ class LoginViewController: UIViewController {
         return loginButton
     }()
     
+    lazy var googleSignInButton: GIDSignInButton = {
+        
+        let loginButton = GIDSignInButton()
+        loginButton.frame = CGRect(x: 32, y: 360 + 80 + 80, width: view.frame.width - 64, height: 50)
+        loginButton.addTarget(self, action: #selector(signInWithGooglePressed), for: .touchUpInside)
+        return loginButton
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +67,7 @@ class LoginViewController: UIViewController {
         
         view.addSubview(fbLoginButton)
         view.addSubview(customFBLoginButton)
+        view.addSubview(googleSignInButton )
     }
 }
 
@@ -166,5 +176,54 @@ extension LoginViewController: LoginButtonDelegate {
             print("Successfuly saved user into Firebase database ")
             self.openMainViewController()
         }
+    }
+}
+
+// MARK: Google SDK
+
+extension LoginViewController {
+    
+    @objc private func signInWithGooglePressed() {
+        
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+        
+        GIDSignIn.sharedInstance.configuration = config
+     
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] user, error in
+
+          if let error = error {
+            print(error)
+            return
+          }
+            
+            print("Successfully logged into Google")
+
+          guard
+            let authentication = user?.user.accessToken.tokenString,
+            let idToken = user?.user.idToken?.tokenString
+          else {
+            return
+          }
+            
+            let googleCredential = GoogleAuthProvider.credential(
+                withIDToken: idToken,
+                accessToken: authentication)
+            
+            Auth.auth().signIn(with: googleCredential) { user, error in
+                
+                if let error = error {
+                    print("Something went wrong with our Google user: ", error)
+                    return
+                }
+                
+                print("Success logget into Firebase with Google")
+                self.openMainViewController()
+            }
+            
+        }
+        
     }
 }
