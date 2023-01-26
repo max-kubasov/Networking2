@@ -200,6 +200,13 @@ extension LoginViewController {
           }
             
             print("Successfully logged into Google")
+            
+            if let userName = user?.user.profile?.name, let userEmail = user?.user.profile?.email {
+                let userData = ["name": userName, "email": userEmail]
+                userProfile = UserProfile(data: userData)
+            }
+            
+             
 
           guard
             let authentication = user?.user.accessToken.tokenString,
@@ -220,7 +227,7 @@ extension LoginViewController {
                 }
                 
                 print("Success logget into Firebase with Google")
-                self.openMainViewController()
+                self.saveIntoFirebase()
             }
             
         }
