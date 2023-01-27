@@ -292,10 +292,13 @@
                         <viewLayoutGuide key="safeArea" id="vj1-cJ-uw8"/>
                         <color key="backgroundColor" systemColor="systemGray4Color"/>
                     </view>
+                    <connections>
+                        <segue destination="Ez7-x0-F8M" kind="presentation" identifier="signInSegue" modalPresentationStyle="fullScreen" id="369-Zj-Ag1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kto-sB-zDl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-569" y="133"/>
+            <point key="canvasLocation" x="-777" y="133"/>
         </scene>
         <!--item1-->
         <scene sceneID="PIv-ao-svt">
@@ -354,6 +357,163 @@
             </objects>
             <point key="canvasLocation" x="1093.5999999999999" y="920.68965517241384"/>
         </scene>
+        <!--Sign In View Controller-->
+        <scene sceneID="elH-hI-ggN">
+            <objects>
+                <viewController id="Ez7-x0-F8M" customClass="SignInViewController" customModule="Networking" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8Lf-X4-mWH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="SFr-hI-5q2">
+                                <rect key="frame" x="32" y="50" width="311" height="188.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TH8-cw-CrP">
+                                        <rect key="frame" x="0.0" y="0.0" width="311" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EMAIL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4fU-bK-OCh">
+                                        <rect key="frame" x="0.0" y="37.5" width="311" height="16"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4re-GG-X2I">
+                                        <rect key="frame" x="0.0" y="70.5" width="311" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PASSWORD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xr3-v3-EK1">
+                                        <rect key="frame" x="0.0" y="121.5" width="311" height="16"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YBb-Jo-sb6">
+                                        <rect key="frame" x="0.0" y="154.5" width="311" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vZ6-Y1-dIG">
+                                <rect key="frame" x="130" y="274" width="115" height="30"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Sing Up">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="i6p-In-cDu" kind="presentation" modalPresentationStyle="fullScreen" id="ugg-kW-1ve"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="B3K-sp-I0V"/>
+                        <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                        <constraints>
+                            <constraint firstItem="B3K-sp-I0V" firstAttribute="trailing" secondItem="SFr-hI-5q2" secondAttribute="trailing" constant="32" id="9yK-YR-d7r"/>
+                            <constraint firstItem="SFr-hI-5q2" firstAttribute="leading" secondItem="B3K-sp-I0V" secondAttribute="leading" constant="32" id="Brq-XZ-zrx"/>
+                            <constraint firstItem="B3K-sp-I0V" firstAttribute="trailing" secondItem="vZ6-Y1-dIG" secondAttribute="trailing" constant="130" id="O9n-vy-gWa"/>
+                            <constraint firstItem="vZ6-Y1-dIG" firstAttribute="leading" secondItem="B3K-sp-I0V" secondAttribute="leading" constant="130" id="Q64-OZ-Us6"/>
+                            <constraint firstItem="vZ6-Y1-dIG" firstAttribute="top" secondItem="SFr-hI-5q2" secondAttribute="bottom" constant="35.5" id="c19-bQ-30Y"/>
+                            <constraint firstItem="SFr-hI-5q2" firstAttribute="top" secondItem="B3K-sp-I0V" secondAttribute="top" constant="50" id="gbS-io-JSV"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Qel-ry-FW8"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="4re-GG-X2I" id="X2r-Hg-6fn"/>
+                        <outlet property="passwordTextField" destination="YBb-Jo-sb6" id="ekG-ms-h89"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k7r-A0-NzE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="224.80000000000001" y="-615.74212893553226"/>
+        </scene>
+        <!--Sing Up View Controller-->
+        <scene sceneID="7dt-Cw-8QS">
+            <objects>
+                <viewController id="i6p-In-cDu" customClass="SingUpViewController" customModule="Networking" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hpm-04-H2I">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Hxf-9J-XVP">
+                                <rect key="frame" x="32" y="40" width="311" height="283"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sing Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMk-08-mMT">
+                                        <rect key="frame" x="0.0" y="0.0" width="311" height="27"/>
+                                        <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USERNAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrb-I6-CGu">
+                                        <rect key="frame" x="0.0" y="32" width="311" height="20"/>
+                                        <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="le0-Vi-RKW">
+                                        <rect key="frame" x="0.0" y="57" width="311" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EMAIL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPJ-iQ-EW0">
+                                        <rect key="frame" x="0.0" y="96" width="311" height="20"/>
+                                        <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tkC-UM-0nr">
+                                        <rect key="frame" x="0.0" y="121" width="311" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PASSWORD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Be-0G-05i">
+                                        <rect key="frame" x="0.0" y="160" width="311" height="20"/>
+                                        <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HXE-dE-o6k">
+                                        <rect key="frame" x="0.0" y="185" width="311" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONFIRM PASSWORD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDJ-tb-UMg">
+                                        <rect key="frame" x="0.0" y="224" width="311" height="20"/>
+                                        <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="25V-7f-G4X">
+                                        <rect key="frame" x="0.0" y="249" width="311" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="GKu-sF-bwc"/>
+                        <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                        <constraints>
+                            <constraint firstItem="Hxf-9J-XVP" firstAttribute="leading" secondItem="GKu-sF-bwc" secondAttribute="leading" constant="32" id="08c-It-802"/>
+                            <constraint firstItem="Hxf-9J-XVP" firstAttribute="top" secondItem="GKu-sF-bwc" secondAttribute="top" constant="40" id="5X3-SI-40e"/>
+                            <constraint firstItem="GKu-sF-bwc" firstAttribute="trailing" secondItem="Hxf-9J-XVP" secondAttribute="trailing" constant="32" id="qfr-70-sZU"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="o9I-rB-Jqw"/>
+                    <connections>
+                        <outlet property="confirmPasswordTextField" destination="25V-7f-G4X" id="Eo8-AC-0Nn"/>
+                        <outlet property="emailTextField" destination="tkC-UM-0nr" id="22J-k5-uG0"/>
+                        <outlet property="passwordTextField" destination="HXE-dE-o6k" id="NYe-RX-bBv"/>
+                        <outlet property="userNameTextField" destination="le0-Vi-RKW" id="nWB-51-9OP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y6m-Lu-X1f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1093.5999999999999" y="-616.64167916041981"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="KXm-Ne-tPj">
             <objects>
@@ -374,8 +534,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Zhm-Mi-ly4"/>
-        <segue reference="Be6-fl-P5w"/>
+        <segue reference="KN0-RI-yMj"/>
+        <segue reference="tow-zC-TkS"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.right.arrow.left.square.fill" catalog="system" width="128" height="114"/>
