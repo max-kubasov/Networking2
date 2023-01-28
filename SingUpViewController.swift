@@ -10,6 +10,8 @@ import UIKit
 
 class SingUpViewController: UIViewController {
     
+    var activityIndicator: UIActivityIndicatorView!
+    
     lazy var continueButton: UIButton = {
         
         let button = UIButton()
@@ -39,6 +41,13 @@ class SingUpViewController: UIViewController {
         view.addSubview(continueButton)
         setContinueButton(enable: false)
         
+        activityIndicator = UIActivityIndicatorView(style: .gray)
+        activityIndicator.color = secondaryColor
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        activityIndicator.center = continueButton.center
+        
+        view.addSubview(activityIndicator)
+        
         emailTextField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
@@ -54,6 +63,9 @@ class SingUpViewController: UIViewController {
     
     @objc private func handleSignIn() {
         
+        setContinueButton(enable: false)
+        continueButton.setTitle("", for: .normal)
+        activityIndicator.startAnimating()
     }
     
     @objc private func textFieldChanged() {
@@ -78,6 +90,8 @@ class SingUpViewController: UIViewController {
         continueButton.center = CGPoint(
             x: view.center.x,
             y: view.frame.height - keyboardFrame.height - 16.0 - continueButton.frame.height / 2)
+        
+        activityIndicator.center = continueButton.center
         
     }
      
