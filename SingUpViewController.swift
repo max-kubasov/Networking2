@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SingUpViewController: UIViewController {
     
@@ -66,6 +67,44 @@ class SingUpViewController: UIViewController {
         setContinueButton(enable: false)
         continueButton.setTitle("", for: .normal)
         activityIndicator.startAnimating()
+        
+        guard
+            let email = emailTextField.text,
+            let password = passwordTextField.text,
+            let userName = userNameTextField.text
+        else { return }
+        
+        Auth.auth().createUser(withEmail: email, password: password) { user, error in
+            
+            if let error = error {
+                print(error.localizedDescription)
+                
+                self.setContinueButton(enable: true)
+                self.continueButton.setTitle("Continue", for: .normal)
+                self.activityIndicator.stopAnimating()
+                
+                return
+            }
+            
+            print("Successfully logged into Firebase with User Email")
+            
+            if let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest() {
+                changeRequest.displayName = userName
+                changeRequest.commitChanges { error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                        
+                        self.setContinueButton(enable: true)
+                        self.continueButton.setTitle("Continue", for: .normal)
+                        self.activityIndicator.stopAnimating()
+                    }
+                    
+                    print("User dispaly name changed!")
+                    
+                    self.presentedViewController?.presentedViewController?.presentedViewController?.dismiss(animated: true)
+                } 
+            }
+        }
     }
     
     @objc private func textFieldChanged() {

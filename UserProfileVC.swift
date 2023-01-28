@@ -95,22 +95,29 @@ extension UserProfileVC {
         
         if Auth.auth().currentUser != nil {
             
-            guard let uid = Auth.auth().currentUser?.uid else { return }
-            
-            Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { snapshot in
+            if let userName = Auth.auth().currentUser?.displayName {
                 
-                guard let userData = snapshot.value as? [String: Any] else { return }
-                self.currentUser = CurrentUser(uid: uid, data: userData)
+                activityIndicator.stopAnimating()
+                userNamelabel.isHidden = false
+                userNamelabel.text = getProviderData(with: userName)
+            } else {
                 
-                self.activityIndicator.stopAnimating()
-                self.userNamelabel.isHidden = false
+                guard let uid = Auth.auth().currentUser?.uid else { return }
                 
-                self.userNamelabel.text = self.getProviderData()
-                
-            } withCancel: { error in
-                print(error)
+                Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { snapshot in
+                    
+                    guard let userData = snapshot.value as? [String: Any] else { return }
+                    self.currentUser = CurrentUser(uid: uid, data: userData)
+                    
+                    self.activityIndicator.stopAnimating()
+                    self.userNamelabel.isHidden = false
+                    
+                    self.userNamelabel.text = self.getProviderData(with: self.currentUser?.name ?? "NoName")
+                    
+                } withCancel: { error in
+                    print(error)
+                }
             }
-
         }
     }
     
@@ -129,6 +136,10 @@ extension UserProfileVC {
                     GIDSignIn.sharedInstance.signOut()
                     print("User did logout with google")
                     openLoginViewController()
+                case "password":
+                    try! Auth.auth().signOut()
+                    print("User did sign out")
+                    openLoginViewController()
                 default:
                     print("User is signed in with \(userInfo.providerID)")
                 }
@@ -136,7 +147,7 @@ extension UserProfileVC {
         }
     }
     
-    private func getProviderData() -> String {
+    private func getProviderData(with user: String) -> String {
         
         var greetings = ""
         
@@ -148,11 +159,13 @@ extension UserProfileVC {
                     provider = "Facebook"
                 case "google.com":
                     provider = "Google"
+                case "password":
+                    provider = "Email"
                 default:
                     break
                 }
             }
-            greetings = "\(currentUser?.name ?? "NoName") Logged in with \(provider!)"
+            greetings = "\(user) Logged in with \(provider!)"
         }
         
         return greetings
