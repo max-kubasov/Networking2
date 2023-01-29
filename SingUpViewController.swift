@@ -61,52 +61,6 @@ class SingUpViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keybordWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
-    
-    @objc private func handleSignIn() {
-        
-        setContinueButton(enable: false)
-        continueButton.setTitle("", for: .normal)
-        activityIndicator.startAnimating()
-        
-        guard
-            let email = emailTextField.text,
-            let password = passwordTextField.text,
-            let userName = userNameTextField.text
-        else { return }
-        
-        Auth.auth().createUser(withEmail: email, password: password) { user, error in
-            
-            if let error = error {
-                print(error.localizedDescription)
-                
-                self.setContinueButton(enable: true)
-                self.continueButton.setTitle("Continue", for: .normal)
-                self.activityIndicator.stopAnimating()
-                
-                return
-            }
-            
-            print("Successfully logged into Firebase with User Email")
-            
-            if let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest() {
-                changeRequest.displayName = userName
-                changeRequest.commitChanges { error in
-                    if let error = error {
-                        print(error.localizedDescription)
-                        
-                        self.setContinueButton(enable: true)
-                        self.continueButton.setTitle("Continue", for: .normal)
-                        self.activityIndicator.stopAnimating()
-                    }
-                    
-                    print("User dispaly name changed!")
-                    
-                    self.presentedViewController?.presentedViewController?.presentedViewController?.dismiss(animated: true)
-                } 
-            }
-        }
-    }
-    
     @objc private func textFieldChanged() {
         
         guard
@@ -143,6 +97,51 @@ class SingUpViewController: UIViewController {
         } else {
             continueButton.alpha = 0.5
             continueButton.isEnabled = false
+        }
+    }
+    
+    @objc private func handleSignIn() {
+        
+        setContinueButton(enable: false)
+        continueButton.setTitle("", for: .normal)
+        activityIndicator.startAnimating()
+        
+        guard
+            let email = emailTextField.text,
+            let password = passwordTextField.text,
+            let userName = userNameTextField.text
+        else { return }
+        
+        Auth.auth().createUser(withEmail: email, password: password) { user, error in
+            
+            if let error = error {
+                print(error.localizedDescription)
+                
+                self.setContinueButton(enable: true)
+                self.continueButton.setTitle("Continue", for: .normal)
+                self.activityIndicator.stopAnimating()
+                
+                return
+            }
+            
+            print("Successfully logged into Firebase with User Email")
+            
+            if let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest() {
+                changeRequest.displayName = userName
+                changeRequest.commitChanges(completion: { error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                        
+                        self.setContinueButton(enable: true)
+                        self.continueButton.setTitle("Continue", for: .normal)
+                        self.activityIndicator.stopAnimating()
+                    }
+                    
+                    print("User dispaly name changed!")
+                    
+                    self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true)
+                })
+            }
         }
     }
     
