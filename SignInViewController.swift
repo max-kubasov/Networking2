@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SignInViewController: UIViewController {
     
@@ -55,14 +56,6 @@ class SignInViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keybordWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
-    
-    @objc private func handleSignIn() {
-        
-        setContinueButton(enable: false)
-        continueButton.setTitle("", for: .normal)
-        activityIndicator.startAnimating()
-    }
-    
     @objc private func textFieldChanged() {
         
         guard
@@ -97,6 +90,34 @@ class SignInViewController: UIViewController {
         } else {
             continueButton.alpha = 0.5
             continueButton.isEnabled = false
+        }
+    }
+    
+    @objc private func handleSignIn() {
+        
+        setContinueButton(enable: false)
+        continueButton.setTitle("", for: .normal)
+        activityIndicator.startAnimating()
+        
+        guard
+            let email = emailTextField.text,
+            let password = passwordTextField.text
+        else { return }
+        
+        Auth.auth().signIn(withEmail: email, password: password) { user, error in
+            
+            if let error = error {
+                print(error.localizedDescription)
+                
+                self.setContinueButton(enable: true)
+                self.continueButton.setTitle("Continue", for: .normal)
+                self.activityIndicator.stopAnimating()
+                
+                return
+            }
+            
+            print("Successfuly logged in with email")
+            self.presentingViewController?.presentingViewController?.dismiss(animated: true)
         }
     }
 
